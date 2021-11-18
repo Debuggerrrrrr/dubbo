@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:dubbo="http://dubbo.apache.org/schema/dubbo"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://dubbo.apache.org/schema/dubbo
+       http://dubbo.apache.org/schema/dubbo/dubbo.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd">
+    <!--组件扫描器-->
+    <context:component-scan base-package="com.yqc"/>
+    <!--dubbo相关配置，使用http://dubbo.apache.org/schema/dubbo名称空间-->
+    <!--1、定义当前应用的名字-->
+    <dubbo:application name="gmall-order-web"/>
+    <!--2、指定注册中心地址-->
+    <dubbo:registry address="zookeeper://127.0.0.1:2181"/>
+    <!--3、声明需要调用的远程服务接口，会在当前应用的容器中生成相应类型的代理组件，并不是服务提供者容器中的userServiceImpl-->
+    <dubbo:reference interface="com.yqc.service.UserService" id="userService" version="*"/>
+    <!--配置监控中心：从注册中心获取监控中心地址-->
+    <dubbo:monitor protocol="registry"/>
+</beans>

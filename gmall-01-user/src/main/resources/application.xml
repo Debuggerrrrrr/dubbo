@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:dubbo="http://dubbo.apache.org/schema/dubbo"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://dubbo.apache.org/schema/dubbo
+       http://dubbo.apache.org/schema/dubbo/dubbo.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd">
+    <!--组件扫描器-->
+    <context:component-scan base-package="com.yqc"/>
+    <!--dubbo相关配置，使用http://dubbo.apache.org/schema/dubbo名称空间-->
+    <!--1、定义当前应用的名字-->
+    <dubbo:application name="gmall-user"/>
+    <!--2、指定注册中心地址-->
+    <dubbo:registry address="zookeeper://127.0.0.1:2181"/>
+    <!--3、指定通信规则（通信协议、通信端口号）-->
+    <dubbo:protocol name="dubbo" port="20880"/>
+    <!--4、指定要暴露的服务-->
+    <!--1）暴露新版本服务-->
+    <dubbo:service interface="com.yqc.service.UserService" ref="userServiceImpl" stub="com.yqc.service.UserServiceStub" version="0.0.1"/>
+    <bean id="userServiceImpl" class="com.yqc.service.UserServiceImpl"/>
+    <!--2）暴露旧版本服务-->
+    <dubbo:service interface="com.yqc.service.UserService" ref="userServiceImpl02" version="0.0.2"/>
+    <bean id="userServiceImpl02" class="com.yqc.service.UserServiceImpl02"/>
+    <!--配置监控中心：从注册中心获取监控中心地址-->
+    <dubbo:monitor protocol="registry"/>
+</beans>

@@ -1,0 +1,15 @@
+dubbo:
+  # 应用名
+  application:
+    name: gmall-order-web
+  # 注册中心
+  registry:
+    address: 'zookeeper://127.0.0.1:2181'
+  # 监控中心
+  monitor:
+    protocol: registry
+  # 订阅服务使用dubbo中的@Reffrence注解
+
+# 修改Tomcat端口（因为8080端口被dubbo-monitor-simple占用）
+server:
+  port: 8082

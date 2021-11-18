@@ -1,0 +1,18 @@
+dubbo:
+  # 指定应用名
+  application:
+    name: gmall-user
+  # 注册中心
+
+  # 通信规则
+  protocol:
+    name: dubbo
+    port: 20880
+  # 监控中心
+
+  # 暴露服务使用dubbo中的@Service注解
+
+# 修改Tomcat端口（8080端口被占用）
+server:
+  port: 8081
+
